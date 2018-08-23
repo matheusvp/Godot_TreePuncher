@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Trunk.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/skybox_sideHills.png" type="Texture" id=3]
+[ext_resource path="res://sprites/dirt_grass.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sprites/Grave.png" type="Texture" id=6]
+[ext_resource path="res://PressStart2P-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 70
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 7 )
+_sections_unfolded = [ "Font", "Resource", "Settings" ]
+
+[node name="Game" type="Node" index="0"]
+
+script = ExtResource( 1 )
+trunk_scene = ExtResource( 2 )
+
+[node name="Backgroung" type="Sprite" parent="." index="0"]
+
+position = Vector2( 448, 672 )
+scale = Vector2( 2.82927, 2.82927 )
+texture = ExtResource( 3 )
+
+[node name="Ground" type="Node2D" parent="." index="1"]
+
+position = Vector2( 352, 1216 )
+scale = Vector2( 2, 2 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Tile" type="Sprite" parent="Ground" index="0"]
+
+texture = ExtResource( 4 )
+
+[node name="Tile2" type="Sprite" parent="Ground" index="1"]
+
+position = Vector2( 128, 0 )
+texture = ExtResource( 4 )
+
+[node name="Tile3" type="Sprite" parent="Ground" index="2"]
+
+position = Vector2( -128, 0 )
+texture = ExtResource( 4 )
+
+[node name="Player" parent="." index="2" instance=ExtResource( 5 )]
+
+position = Vector2( 604.309, 867.355 )
+
+[node name="FirstTrunkPosition" type="Position2D" parent="." index="3"]
+
+position = Vector2( 352, 960 )
+
+[node name="Grave" type="Sprite" parent="." index="4"]
+
+visible = false
+position = Vector2( 960, 1024 )
+texture = ExtResource( 6 )
+
+[node name="RestartTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[node name="Label" type="Label" parent="." index="6"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -1280.0
+margin_bottom = -1210.0
+grow_horizontal = 0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "custom_fonts" ]
+
+[connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]
+
+
